@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>过渡动画效果</title>
+	<style type="text/css">
+		.component-fade-enter-active, .component-fade-leave-active{
+			transition:opacity .3s ease;
+		}
+		.component-fade-enter, .component-fade-leave-active{
+			opacity:0;
+		}
+	</style>
+	<script src="./framework/vue.js"></script>
+</head>
+<body>
+	<div id="transition-components-demo">
+		<button @click="change()">切换</button>
+		<transition name="component-fade" mode="out-in">
+			<component v-bind:is="view"></component>
+		</transition>
+	</div>
+	<script type="text/javascript">
+		var array = ['v-a','v-b'];
+		var index = 0;
+		new Vue({
+			el:'#transition-components-demo',
+			data:{
+				view:'v-a'
+			},
+			methods:{
+				change:function(){
+					index = index==0?1:0;
+					this.view = array[index];
+				}
+			},
+			components:{
+				'v-a':{
+					template:'<div>Component A</div>'
+				},
+				'v-b':{
+					template:'<div>Component B</div>'
+				}
+			}
+		})
+	</script>
+</body>
+</html>

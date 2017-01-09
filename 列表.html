@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				display: flex;
+				width: 420px;
+				height: 40px;
+				line-height: 40px;
+				margin-top: 10px;
+				background-color: #999;
+			}
+			li .list-left{
+				flex: 1;
+			}
+			li .list-right{
+				flex: 2;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<!--过滤器-->
+		<div id="filter">{{message|capitalize}}</div>
+
+		<div id="list">
+			<ul>
+				<li v-for="(item,index) in items" v-on:click="alertMsg(index)">
+					<div class="list-left">{{item.left}}</div>
+					<div class="list-right">{{item.right}}</div>
+				</li>
+			</ul>
+		</div>
+		
+		<script src="framework/vue.js"></script>
+		<script>
+		var json = [
+			{"left":"左边","right":"右边","alert":"列表1"},
+			{"left":"左边","right":"右边","alert":"列表2"},
+			{"left":"左边","right":"右边","alert":"列表3"},
+			{"left":"左边","right":"右边","alert":"列表4"}
+		]
+
+		var vue = new Vue({
+			el:"#list",
+			data:{
+				items:json
+			},
+			methods:{
+				alertMsg:function(e){
+					// e = parseInt(e);
+					// alert(typeof(e));
+					alert(vue.items[e].alert);
+				}
+			}
+		})
+			
+//			过滤器
+			new Vue({
+				el:"#filter",
+				data:{
+					message:["hello","vue","!"]
+				},
+				filters:{
+					capitalize:function(value){
+						return value.join(" ");
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

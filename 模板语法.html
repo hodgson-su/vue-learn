@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--文本-->
+		<div id="text">{{text}}</div>
+		
+		<!--指令-->
+		<!--html-->
+		<div id="html" v-html="html"></div>
+		
+		<!--属性-->
+		<a id="bind" v-bind:href="url">{{bind}}</a>
+		
+		<!--javascript表达式-->
+		<div id="exp">{{number+1}}</div>
+		
+		<!--过滤器-->
+		<div id="filter">{{message|capitalize}}</div>
+		
+		<script src="framework/vue.js"></script>
+		<script>
+//			文本
+			new Vue({
+				el:"#text",
+				data:{
+					text:'文本'
+				}
+			})
+			
+//			指令:v-html
+			new Vue({
+				el:"#html",
+				data:{
+					html:"<p>这是一段html</p>"
+				}
+			})
+			
+//			属性:bind
+			new Vue({
+				el:"#bind",
+				data:{
+					url:"www.baidu.com",
+					bind:"哦，这是一段通过指令更改的地址"
+				}
+			})
+//			表达式
+			new Vue({
+				el:"#exp",
+				data:{
+					number:1
+				}
+			})
+			
+//			过滤器
+			new Vue({
+				el:"#filter",
+				data:{
+					message:["hello","vue","!"]
+				},
+				filters:{
+					capitalize:function(value){
+						return value.join(" ");
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

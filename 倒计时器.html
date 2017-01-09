@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p id="targetDate">距离{{targetDate}}</p>
+    <p id="num">还有{{num}}</p>
+
+    <script src="framework/vue.js"></script>
+    <script>
+        var target = new Vue({
+          el:"#targetDate",
+          data:{
+            targetDate: new Date("2016-11-22").toString()
+          }
+        })
+        var day = new Vue({
+          el:"#num",
+          data:{
+            num:''
+          }
+        })
+
+        setInterval(function(){
+            var to = new Date(target.targetDate).getTime();
+            var now = new Date().getTime();
+            var count = parseInt(to - now);
+            var num = new Date(count);
+            day.num = num.getDay() + "天" + num.getHours() + "小时" + num.getMinutes() + "分" + num.getSeconds() + "秒";
+        },1000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<pre>
+			构造器：
+			var vm = new Vue({
+				//选项
+			})
+			虽然没有完全遵循MVVM模式，Vue的设计无疑受到了它的启发。因此在文档中经常会使用vm这个变量名来
+			表示Vue实例
+			在实例化Vue时，需要传入一个选项对象，它可以包含数据、模板、挂载元素、方法、生命周期等方法。
+			可以扩展Vue构造器
+			var MyComponent = Vue.extend({
+				//扩展选项
+			})
+			//所有的 MyComponent 实例都讲以预定义的扩展选项被创建
+			var myComponentInstance = new MyComponent()
+			//组件系统将在后面被详细寿命，这里只需要知道所有的Vue.js组件其实都是被扩展的Vue实例
+		</pre>
+		<pre>
+			属性与方法
+			每个Vue实例都会代理其data对象里所有的属性：
+			var data = {a:1}
+			var vm = new Vue({
+				data:data
+			})
+			vm.a === data.a //-->true
+			//设置属性也会影响到原始数据
+			vm.a = 2;
+			data.a //-->2
+			//...反之亦然
+			data.a = 3;
+			vm.a //-->3
+			注意只有这些被代理的属性是响应的。如果在实例创建之后添加新的属性到实例上，它不会触发视图
+			更新。我们将在后面详细讨论响应系统。
+			
+			除了data属性，Vue实例暴露了一些有用的实例属性和方法。这些属性与方法都有前缀$，以便于与
+			代理data属性区分
+			var data = {a:1}
+			var vm = new Vue({
+				el:'#example',
+				data:data
+			})
+			
+			vm.$data === data //-->true
+			vm.$el === document.getElementById('example')  //-->true
+			
+			//$watch 是一个实例方法
+			vm.$watch('a',function(newVal,oldVal){
+				//这个回调将在 ‘vm.a’ 改变后调用
+			})
+			
+			注意，不要在实例属性或者回调函数中使用箭头函数，因为箭头函数绑定父上下文
+		</pre>
+		
+		<pre>
+			实例生命周期
+			var vm = new Vue({
+				data:{
+					a:1
+				},
+				create:function(){
+					//this 指向vm实例
+					console.log('a is：'+this.a)
+				}
+			})
+			
+			也有其它的钩子，在实例生命周期的不同阶段调用，如：mounted、updated、destroyed。
+			钩子的this指向调用它的Vue实例。一些用户可能会问，Vue.js是否有控制器的概念？答案是，
+			没有。组件的自定义逻辑可言分布在这些钩子中。
+		</pre>
+		
+		
+		<!--<script src="//cdn.bootcss.com/vue/2.0.7/vue.js"></script>-->
+		<script src="framework/vue.js"></script>
+		<script src="index.js"></script>
+	</body>
+</html>
